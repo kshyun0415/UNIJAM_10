@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public Player player;
     public int playerHP;
-    public float gameSpeed = 6f;
-    static float A_y = 7;
-    static float B_y = 0;
-    static float C_y = -7;
+    public int gameSpeed = 6;
+    // static float A_y = 7;
+    // static float B_y = 0;
+    // static float C_y = -7;
     public int HS;
-
+    
 
     // public GameObject DomidPannel;
     public GameObject Domidman;
@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("엔딩씬 도출");
             // SceneManager.LoadScene(1);
         }
+
+        PlayerPrefs.SetInt("Speed",gameSpeed);
     }
 
 

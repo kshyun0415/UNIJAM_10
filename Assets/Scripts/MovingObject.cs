@@ -5,7 +5,6 @@ using UnityEngine;
 public class MovingObject : MonoBehaviour
 {
     float Ran;
-    public GameManager GM;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +24,7 @@ public class MovingObject : MonoBehaviour
     {
         Debug.Log(Ran);
         Vector2 newPos = new Vector2();
-        newPos.x = transform.position.x - GM.gameSpeed * Time.deltaTime;
+        newPos.x = transform.position.x - PlayerPrefs.GetInt("Speed") * Time.deltaTime;
         newPos.y = Ran * 6;
         Debug.Log(newPos.x);
         transform.position = newPos;
