@@ -16,7 +16,7 @@ public class MovingObject : MonoBehaviour
     void Update()
     {
         Move();
-         if (transform.position.x < -40)
+        if (transform.position.x < -40)
         {
             Destroy(gameObject);
         }
@@ -30,6 +30,6 @@ public class MovingObject : MonoBehaviour
         Debug.Log(newPos.x);
         transform.position = newPos;
 
-       
+
     }
 }

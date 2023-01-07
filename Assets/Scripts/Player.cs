@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-
+    public bool GameOver = false;
     public int HP = 30;
     public GameObject PlayerUI;
     public Rigidbody2D rb;
@@ -15,6 +14,7 @@ public class Player : MonoBehaviour
     Vector2 rawInput;
     public int level = 0;
     //level -1,0,1 층
+    public int Score = 0;
 
     [SerializeField] float paddingLeft;
     [SerializeField] float paddingRight;
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
+        PlayerPrefs.SetInt("CS",0);
     }
 
     void Update()
@@ -61,6 +61,17 @@ public class Player : MonoBehaviour
 
     }
 
+    void gameEnd(){
+        if(HP <= 0){
+            Debug.Log("gameOver");
+            GameOver = true;
+            if(Score > PlayerPrefs.GetInt("HS"))
+            {
+                PlayerPrefs.SetInt("HS", Score);
+            }
+            PlayerPrefs.SetInt("CS",Score);
+        }
+    }
     IEnumerator Attacked()
     {
         PlayerUI.transform.Find("Basic").gameObject.SetActive(false);

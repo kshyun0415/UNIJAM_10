@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     static float A_y = 7;
     static float B_y = 0;
     static float C_y = -7;
+    public int HS;
 
 
     // public GameObject DomidPannel;
@@ -36,6 +37,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.R))
         {
             SceneManager.LoadScene(0);
+        }
+
+        if (player.GameOver)
+        {
+            Debug.Log("엔딩씬 도출");
+            // SceneManager.LoadScene(1);
         }
     }
 
@@ -72,4 +79,3 @@ public class GameManager : MonoBehaviour
 
 
 }
-

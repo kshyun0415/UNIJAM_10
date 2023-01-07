@@ -9,14 +9,14 @@ public class Trash : MonoBehaviour
 
     void Start()
     {
-  
+
     }
 
 
     void Update()
     {
-  
+
     }
 
- 
+
 }
