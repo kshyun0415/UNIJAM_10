@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public int level = 0;
     //level -1,0,1 층
     public int Score = 0;
+    public bool trashIgnore = false;
 
     [SerializeField] float paddingLeft;
     [SerializeField] float paddingRight;
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("CS",0);
+        PlayerPrefs.SetInt("CS", 0);
     }
 
     void Update()
@@ -61,15 +62,17 @@ public class Player : MonoBehaviour
 
     }
 
-    void gameEnd(){
-        if(HP <= 0){
+    void gameEnd()
+    {
+        if (HP <= 0)
+        {
             Debug.Log("gameOver");
             GameOver = true;
-            if(Score > PlayerPrefs.GetInt("HS"))
+            if (Score > PlayerPrefs.GetInt("HS"))
             {
                 PlayerPrefs.SetInt("HS", Score);
             }
-            PlayerPrefs.SetInt("CS",Score);
+            PlayerPrefs.SetInt("CS", Score);
         }
     }
     IEnumerator Attacked()
@@ -91,16 +94,32 @@ public class Player : MonoBehaviour
             StartCoroutine("Attacked");
 
         }
-        if (other.tag == "TrashCan")
+
+        switch (other.tag)
         {
-            HP -= 10;
-            // Debug.Log(HP);
-        }
-        if (other.tag == "")
-        {
-            HP -= 10;
-            // Debug.Log(HP);
+            case "Can":
+                if(trashIgnore == false){
+                HP -= 3;
+                }
+                return;
+            case "TrashCan":
+                if(trashIgnore == false){
+                HP -= 5;
+                }
+                return;
+            case "Ggogal":
+                if(trashIgnore == false){
+                HP -= 10;
+                }
+                return;
+            case "Feb":
+                trashIgnore = true;
+                return;
+            case "Soju":
+                HP -= 3;
+                return;
         }
     }
+
 
 }
