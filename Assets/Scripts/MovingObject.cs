@@ -27,9 +27,7 @@ public class MovingObject : MonoBehaviour
         Vector2 newPos = new Vector2();
         newPos.x = transform.position.x - GM.gameSpeed * Time.deltaTime;
         newPos.y = Ran * 6;
-        Debug.Log(newPos.x);
         transform.position = newPos;
-
 
     }
 }

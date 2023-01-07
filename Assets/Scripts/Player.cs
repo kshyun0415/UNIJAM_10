@@ -9,25 +9,27 @@ public class Player : MonoBehaviour
     public bool GameOver = false;
     public int HP = 30;
     public GameObject PlayerUI;
-    public Rigidbody2D rb;
+    private Animator anime;
     [SerializeField] float moveSpeed = 7f;
     Vector2 rawInput;
     public int level = 0;
     //level -1,0,1 층
     public int Score = 0;
     public bool trashIgnore = false;
+    public bool isHitted = false;
 
-    [SerializeField] float paddingLeft;
-    [SerializeField] float paddingRight;
-    [SerializeField] float paddingTop;
-    [SerializeField] float paddingBottom;
+    // [SerializeField] float paddingLeft;
+    // [SerializeField] float paddingRight;
+    // [SerializeField] float paddingTop;
+    // [SerializeField] float paddingBottom;
 
-    Vector2 minBounds;
-    Vector2 maxBounds;
+    // Vector2 minBounds;
+    // Vector2 maxBounds;
 
     void Start()
     {
         PlayerPrefs.SetInt("CS", 0);
+        anime = GetComponent<Animator>();
     }
 
     void Update()
@@ -50,13 +52,13 @@ public class Player : MonoBehaviour
         switch (level)
         {
             case -1:
-                gameObject.transform.position = new Vector3(-35f, -6, 1);
+                gameObject.transform.position = new Vector3(-33f, -6, 1);
                 break;
             case 0:
-                gameObject.transform.position = new Vector3(-35f, 0, 1);
+                gameObject.transform.position = new Vector3(-33f, 0, 1);
                 break;
             case 1:
-                gameObject.transform.position = new Vector3(-35f, 6, 1);
+                gameObject.transform.position = new Vector3(-33f, 6, 1);
                 break;
         }
 
@@ -79,9 +81,11 @@ public class Player : MonoBehaviour
     {
         PlayerUI.transform.Find("Basic").gameObject.SetActive(false);
         PlayerUI.transform.Find("Attacked").gameObject.SetActive(true);
+        anime.SetBool("isHitted", true);
         yield return 0.2f;
         PlayerUI.transform.Find("Basic").gameObject.SetActive(true);
         PlayerUI.transform.Find("Attacked").gameObject.SetActive(false);
+        anime.SetBool("isHitted", false);
         yield break;
 
     }
@@ -94,31 +98,38 @@ public class Player : MonoBehaviour
             StartCoroutine("Attacked");
 
         }
-
-        switch (other.tag)
+        if (isHitted == false)
         {
-            case "Can":
-                if(trashIgnore == false){
-                HP -= 3;
-                }
-                return;
-            case "TrashCan":
-                if(trashIgnore == false){
-                HP -= 5;
-                }
-                return;
-            case "Ggogal":
-                if(trashIgnore == false){
-                HP -= 10;
-                }
-                return;
-            case "Feb":
-                trashIgnore = true;
-                return;
-            case "Soju":
-                HP -= 3;
-                return;
+            switch (other.tag)
+            {
+                case "Can":
+                    if (trashIgnore == false)
+                    {
+                        HP -= 3;
+
+                    }
+                    return;
+                case "TrashCan":
+                    if (trashIgnore == false)
+                    {
+                        HP -= 5;
+                    }
+                    return;
+                case "Ggogal":
+                    if (trashIgnore == false)
+                    {
+                        HP -= 10;
+                    }
+                    return;
+                case "Feb":
+                    trashIgnore = true;
+                    return;
+                case "Soju":
+                    HP -= 3;
+                    return;
+            }
         }
+
     }
 
 
