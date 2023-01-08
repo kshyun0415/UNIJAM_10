@@ -32,7 +32,16 @@ public class Player : MonoBehaviour
     public AudioSource adsr;
     public AudioClip CanSound;
     public AudioClip SojuSound;
-    public AudioClip Sound;
+    public AudioClip FriendSound;
+    public AudioClip DoBelieverSound;
+    public AudioClip EnergySound;
+    public AudioClip FebSound;
+    public AudioClip GgoggalSound;
+    public AudioClip BtnclickSound;
+    public AudioClip DomidmanSound;
+    public AudioClip TrashbinSound;
+    public AudioClip SoundWalk;
+
 
     private float ScentNum;
     // public AudioClip CanSound;
@@ -173,30 +182,34 @@ public class Player : MonoBehaviour
                     Sounds(CanSound);
                     if (!trashIgnore)
                     {
-                        HP -= 3;
+                        HP -= 1;
                     }
                     break;
                 case "TrashCan":
                     if (!trashIgnore)
                     {
+                    Sounds(TrashbinSound);
+                        HP -= 4;
+                    }
+                    break;
+                case "Ggoggal":
+                    Sounds(GgoggalSound);
+                    if (!trashIgnore)
+                    {
                         HP -= 5;
                     }
                     break;
-                case "Ggogal":
-                    if (!trashIgnore)
-                    {
-                        HP -= 10;
-                    }
-                    break;
                 case "Feb":
+                    Sounds(FebSound);
                     Destroy(other.gameObject);
                     trashIgnore = true;
                     transform.GetChild(1).gameObject.SetActive(true);
                     break;
                 case "Soju":
+                    Sounds(SojuSound);
                     if (!trashIgnore)
                     {
-                        HP -= 10;
+                        HP -= 5;
                     }
                     Destroy(other.gameObject);
                     break;
@@ -205,6 +218,7 @@ public class Player : MonoBehaviour
                     DoBelieve = true;
                     break;
                 case "Energy":
+                    Sounds(EnergySound);
                     Destroy(other.gameObject);
                     HP += 5;
                     break;
@@ -214,7 +228,7 @@ public class Player : MonoBehaviour
 
 
         //장애물과 부딪혔을 때 점프 및 아파하는 모습 구현
-        if (other.tag == "Can" || other.tag == "TrashCan" || other.tag == "Ggogal")
+        if (other.tag == "Can" || other.tag == "TrashCan" || other.tag == "Ggoggal")
         {
             if (trashIgnore) return;
             StartCoroutine("Attacked");

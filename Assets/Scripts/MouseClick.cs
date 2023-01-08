@@ -29,9 +29,10 @@ Collider2D col;
     {   
         if (hit.transform.GetComponent<Collider2D>() == col)
         {   
-            if(clickNum >= 10)
+            if(clickNum >= 40)
             {
                 player.DoBelieve = false;
+                clickNum = 0;
                 return;      
             }
             clickNum += 1;
