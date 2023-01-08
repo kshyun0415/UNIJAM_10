@@ -6,6 +6,9 @@ public class EnemyController : MonoBehaviour
 {
     public Transform[] spawnPoints;
     public GameObject[] enemyPrefabs;
+    float Ran;
+    float K = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,16 +18,22 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)){
-            Invoke("MakeEnemy",2);
-}
-}
+        K += Time.deltaTime;
+        if(K>=2)
+        {   
+            MakeEnemy();
+            K=0;
+        }
+    }
+
+
 
     void MakeEnemy(){
         int randEnemy= Random.Range(0, enemyPrefabs.Length);
-            int randSpawnPoint=Random.Range(0,spawnPoints.Length);
-
-            Instantiate(enemyPrefabs[randEnemy], spawnPoints[randSpawnPoint].position, transform.rotation);
+        int randSpawnPoint=Random.Range(0,spawnPoints.Length);
+        Ran = Random.Range(-1,2);
+        
+        Instantiate(enemyPrefabs[randEnemy], spawnPoints[randSpawnPoint].position, transform.rotation);
 
     }
 }

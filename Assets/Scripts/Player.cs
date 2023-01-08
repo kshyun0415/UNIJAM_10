@@ -169,14 +169,20 @@ public class Player : MonoBehaviour
                         }
                         break;
                     case "Feb":
+                        Destroy(other.gameObject);
                         trashIgnore = true;
                         break;
                     case "Soju":
                         HP -= 3;
+                        Destroy(other.gameObject);
                         break;
                     case "DoBeliever":
                         Destroy(other.gameObject);
                         DoBelieve = true;
+                        break;
+                    case "Energy":
+                        Destroy(other.gameObject);
+                        HP += 5;
                         break;
                 }
             }
