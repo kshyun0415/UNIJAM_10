@@ -24,19 +24,19 @@ public class EnemyController : MonoBehaviour
     {
         K += Time.deltaTime;
         if(K>=1.5f)
-        {   
+        { 
             MakeEnemy();
             K=0;
         }
         I += Time.deltaTime;
-        if(I>=5f)
+        if(I>=7.5f)
         {
             MakeBenefit();
             I=0;
         }
 
         U += Time.deltaTime;
-        if(U>=7f)
+        if(U>=10f)
         {
             MakePeople();
             U=0;

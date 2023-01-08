@@ -12,6 +12,7 @@ Vector2 targetPosition;
 RaycastHit2D hit;
 public int clickNum = 0;
 public Player player;
+public AudioClip dosound;
 
 private SpriteRenderer render;
 
@@ -30,12 +31,13 @@ Collider2D col;
         if (hit.transform.GetComponent<Collider2D>() == col)
         {   
             if(clickNum >= 40)
-            {
+            {   
                 player.DoBelieve = false;
                 clickNum = 0;
                 return;      
             }
             clickNum += 1;
+            player.Sounds(dosound);
             StartCoroutine("Attacked");    
         }
     

@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public GameObject AT;
     public GameObject HPBar;
     public GameObject DoImg;
+    public GameObject Light;
 
     public TextMeshProUGUI HPTxt;
     public TextMeshProUGUI ScoreTxt;
@@ -42,8 +43,11 @@ public class Player : MonoBehaviour
     public AudioClip TrashbinSound;
     public AudioClip SoundWalk;
 
+    public bool Dance = false;
+    public bool Fever = false;
 
     private float ScentNum;
+    private float DanceT;
     // public AudioClip CanSound;
     // public AudioClip CanSound;
     // public AudioClip CanSound;
@@ -70,12 +74,13 @@ public class Player : MonoBehaviour
     {
         Move();
         HPCheck();
-        timer += 100 * Time.deltaTime;
+        if (Fever) { timer += 200 * Time.deltaTime; } else { timer += 100 * Time.deltaTime; }
         Score = (int)timer;
         if (DoBelieve) { DoActive(1); }
         else { DoActive(-1); }
         ScoreTxt.text = $"SCORE : {Score} ";
         ScentCheck();
+        DanceCheck();
     }
 
 
@@ -136,6 +141,25 @@ public class Player : MonoBehaviour
         }
 
     }
+    void DanceCheck()
+    {
+        if (Dance)
+        {
+            DanceT += Time.deltaTime;
+            if (DanceT <= 15)
+            {
+                transform.Rotate(new Vector3(0, 360 * Time.deltaTime, 0));
+                Fever = true;
+            }
+            else
+            {   
+                DanceT = 0;
+                Fever = false;
+                Dance = false;
+            }
+        }
+
+    }
     IEnumerator Attacked()
     {
         NM.SetActive(false);
@@ -167,7 +191,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-    void Sounds(AudioClip k)
+    public void Sounds(AudioClip k)
     {
         adsr.clip = k;
         adsr.Play();
@@ -188,7 +212,7 @@ public class Player : MonoBehaviour
                 case "TrashCan":
                     if (!trashIgnore)
                     {
-                    Sounds(TrashbinSound);
+                        Sounds(TrashbinSound);
                         HP -= 4;
                     }
                     break;
@@ -221,6 +245,11 @@ public class Player : MonoBehaviour
                     Sounds(EnergySound);
                     Destroy(other.gameObject);
                     HP += 5;
+                    break;
+                case "Friends":
+                    Sounds(FriendSound);
+                    Destroy(other.gameObject);
+                    Dance = true;
                     break;
             }
         }
