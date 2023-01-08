@@ -30,12 +30,12 @@ public class GameManager : MonoBehaviour
         gameSpeed += 0.1f * Time.deltaTime;
 
         playerHP = player.HP;
-        if (playerHP == 10)
+        if (0<playerHP && playerHP<11)
         {
             caughtByDomidman();
-            player.HP -= 1;
+            
         }
-        Debug.Log(player.HP);
+       
 
         if (Input.GetKey(KeyCode.R))
         {
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     void caughtByDomidman()
     {
         Time.timeScale = 0f;
+        Debug.Log("TiemScale:"+Time.timeScale);
         Domidman.SetActive(true);
 
 

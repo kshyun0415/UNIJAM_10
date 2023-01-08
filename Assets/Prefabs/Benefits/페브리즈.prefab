@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8897940774461324694}
   - component: {fileID: 8897940774461324695}
   m_Layer: 0
-  m_Name: "\u1111\u1166\u1107\u1173\u1105\u1175\u110C\u1173"
+  m_Name: "\uD398\uBE0C\uB9AC\uC988"
   m_TagString: Feb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.32}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -122,5 +122,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.45, y: 7.15}
+  m_Size: {x: 2.45, y: 4.94}
   m_EdgeRadius: 0
