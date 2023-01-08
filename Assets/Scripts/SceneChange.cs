@@ -47,7 +47,6 @@ public class SceneChange : MonoBehaviour
     }
 
     public void quitGame(){
-        Debug.Log("Game Over");
         Application.Quit();
     }
 

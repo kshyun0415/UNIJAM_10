@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class Player : MonoBehaviour
     public AudioClip CanSound;
     public AudioClip SojuSound;
     public AudioClip Sound;
+
+    private float ScentNum;
     // public AudioClip CanSound;
     // public AudioClip CanSound;
     // public AudioClip CanSound;
@@ -114,13 +117,13 @@ public class Player : MonoBehaviour
         if (HP <= 0)
         {
             HPBar.transform.localScale = new Vector2(0, 1);
-            Debug.Log("gameOver");
             GameOver = true;
             if (Score > PlayerPrefs.GetInt("HS"))
             {
                 PlayerPrefs.SetInt("HS", Score);
             }
             PlayerPrefs.SetInt("CS", Score);
+            SceneManager.LoadScene("EndScene");
         }
 
     }
@@ -146,13 +149,12 @@ public class Player : MonoBehaviour
     {
         if (trashIgnore)
         {
-            float i = 0;
-            i += Time.deltaTime;
-            if (i >= 10)
+            ScentNum += Time.deltaTime;
+            if (ScentNum >= 10)
             {
                 transform.GetChild(1).gameObject.SetActive(false);
-                Debug.Log ("뭐야");
                 trashIgnore = false;
+                ScentNum = 0;
             }
         }
     }
@@ -169,19 +171,19 @@ public class Player : MonoBehaviour
             {
                 case "Can":
                     Sounds(CanSound);
-                    if (trashIgnore == false)
+                    if (!trashIgnore)
                     {
                         HP -= 3;
                     }
                     break;
                 case "TrashCan":
-                    if (trashIgnore == false)
+                    if (!trashIgnore)
                     {
                         HP -= 5;
                     }
                     break;
                 case "Ggogal":
-                    if (trashIgnore == false)
+                    if (!trashIgnore)
                     {
                         HP -= 10;
                     }
@@ -192,7 +194,10 @@ public class Player : MonoBehaviour
                     transform.GetChild(1).gameObject.SetActive(true);
                     break;
                 case "Soju":
-                    HP -= 3;
+                    if (!trashIgnore)
+                    {
+                        HP -= 10;
+                    }
                     Destroy(other.gameObject);
                     break;
                 case "DoBeliever":
@@ -211,7 +216,7 @@ public class Player : MonoBehaviour
         //장애물과 부딪혔을 때 점프 및 아파하는 모습 구현
         if (other.tag == "Can" || other.tag == "TrashCan" || other.tag == "Ggogal")
         {
-            if(trashIgnore)return;
+            if (trashIgnore) return;
             StartCoroutine("Attacked");
             Destroy(other.gameObject);
 
