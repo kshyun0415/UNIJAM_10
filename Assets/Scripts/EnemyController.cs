@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         K += Time.deltaTime;
-        if(K>=2)
+        if(K>=1.5f)
         {   
             MakeEnemy();
             K=0;
