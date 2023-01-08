@@ -8,12 +8,12 @@ public class GameManager : MonoBehaviour
 {
     public Player player;
     public int playerHP;
-    public float gameSpeed = 6f;
-    static float A_y = 7;
-    static float B_y = 0;
-    static float C_y = -7;
+    public float gameSpeed = 6;
+    // static float A_y = 7;
+    // static float B_y = 0;
+    // static float C_y = -7;
     public int HS;
-
+    
 
     // public GameObject DomidPannel;
     public GameObject Domidman;
@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //게임 스피드의 증가 -> 게임을 어렵게한다.
+        gameSpeed += 0.1f * Time.deltaTime;
+
         playerHP = player.HP;
         if (playerHP == 10)
         {
@@ -44,13 +47,15 @@ public class GameManager : MonoBehaviour
             Debug.Log("엔딩씬 도출");
             // SceneManager.LoadScene(1);
         }
+
+        PlayerPrefs.SetFloat("Speed",gameSpeed);
+        
     }
 
 
     void caughtByDomidman()
     {
         Time.timeScale = 0f;
-        Debug.Log("CaughtByDomidman" + player.HP);
         Domidman.SetActive(true);
 
 
